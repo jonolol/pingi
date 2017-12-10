@@ -50,6 +50,8 @@ public class Map : MonoBehaviour
         corr.MapCoordinate.X = x;
         corr.MapCoordinate.Y = y;
 
+        corr.MapOwner = this;
+
         gameObject.transform.position = new Vector3(x * corr.Length, 0, y * corr.Length);
 
         if (x > 0 && CorridorArray[x - 1, y] != null)
@@ -74,6 +76,23 @@ public class Map : MonoBehaviour
         }
 
         return corr;
+    }
+
+    public static ICollection<MapVector2> SidesOfCoord(MapVector2 coord)
+    {
+        return SidesOfCoord(coord.X, coord.Y);
+    }
+
+    public static ICollection<MapVector2> SidesOfCoord(int x, int y)
+    {
+        var retVal = new List<MapVector2>();
+
+        retVal.Add(new MapVector2(x - 1, y));
+        retVal.Add(new MapVector2(x + 1, y));
+        retVal.Add(new MapVector2(x, y - 1));
+        retVal.Add(new MapVector2(x, y + 1));
+
+        return retVal;
     }
 
     public bool Taken(int x, int y)

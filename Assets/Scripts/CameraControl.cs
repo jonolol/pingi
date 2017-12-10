@@ -32,9 +32,6 @@ public class CameraControl : MonoBehaviour
 
             float rotationY = transform.localEulerAngles.y;
             transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
-
-            Debug.Log("transform.localEulerAngles.y: " + transform.localEulerAngles);
-            Debug.Log("transform.rotation.eulerAngles.y: " + transform.rotation.eulerAngles);
         }
         
 	}

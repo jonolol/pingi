@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Corridor : MonoBehaviour
 {
+    public Map MapOwner;
     public MapVector2 MapCoordinate;
     protected float corridorLength = 10f;
     protected Dictionary<Direction, Connection> connections = new Dictionary<Direction, Connection>();
@@ -131,6 +132,19 @@ public class Corridor : MonoBehaviour
         */
     }
 
+    public ICollection<MapVector2> GetFreeNeighbours()
+    {
+        var retVal = new List<MapVector2>();
+        var sides = Map.SidesOfCoord(this.MapCoordinate);
+
+        foreach(var s in sides)
+        {
+            if (!MapOwner.Taken(s.X, s.Y)) retVal.Add(s);
+        }
+
+        return retVal;
+    }
+
     public virtual bool Initialize()
     {
         if (initialized) return false;
@@ -146,6 +160,9 @@ public class Corridor : MonoBehaviour
         connections[Direction.West ].WallObject = SideWest;
         connections[Direction.Up   ].WallObject = SideUp;
         connections[Direction.Down ].WallObject = SideDown;
+
+        // Let's just remove the ceiling for now
+        Destroy(connections[Direction.Up].WallObject);
 
         initialized = true;
         return true;

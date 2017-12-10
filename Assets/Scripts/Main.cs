@@ -12,7 +12,7 @@ public class Main : MonoBehaviour
 	void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        map = MapManager.CreateRandomMap(50, 50, 100);
+        map = MapManager.CreateRandomMap2(50, 50, 100);
 
         //map = new Map(10, 10);
 

@@ -23,8 +23,14 @@ public class PlayerMovement : MonoBehaviour
         float deltaY = 0;// Camera.main.transform.forward * speed;
         float deltaZ = Input.GetAxis("Vertical") * speed;
         Vector3 movement = new Vector3(deltaX, deltaY, deltaZ);
+
+        //movement = Camera.main.transform.forward * deltaZ;
+
         movement = Vector3.ClampMagnitude(movement, speed);
-        
+
+        if     (Input.GetKey(KeyCode.Space))        movement.y += speed;
+        else if(Input.GetKey(KeyCode.RightControl)) movement.y -= speed;
+
         //movement.y = gravity;
 
         movement *= Time.deltaTime;
